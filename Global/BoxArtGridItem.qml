@@ -33,18 +33,20 @@ Item {
             if (data.assets.boxFront.includes("/header.jpg"))
                 return steamBoxArt(data);
             else {
-                if (data.assets.boxFront !== "")
+                if (data.assets.box3d !== "")
+                    return data.assets.box3d;
+                else if (data.assets.boxFront !== "")
                     return data.assets.boxFront;
-                else if (data.assets.poster !== "")
+                /*else if (data.assets.poster !== "") //not use
                     return data.assets.poster;
-                else if (data.assets.banner !== "")
+                else if (data.assets.banner !== "") //not use
                     return data.assets.banner;
-                else if (data.assets.tile !== "")
+                else if (data.assets.tile !== "") //not use
                     return data.assets.tile;
                 else if (data.assets.cartridge !== "")
                     return data.assets.cartridge;
                 else if (data.assets.logo !== "")
-                    return data.assets.logo;
+                    return data.assets.logo;*/
             }
         }
         return "";

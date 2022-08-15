@@ -145,45 +145,47 @@ FocusScope {
     // Combine the video and the screenshot arrays into one
     function mediaArray() {
         let mediaList = [];
-        if (game && game.assets.video) game.assets.videoList.forEach(v => mediaList.push(v));
+        /*if (game && game.assets.video) game.assets.videoList.forEach(v => mediaList.push(v));
 
-        if (game && game.assets.manual) {
-            mediaList.push(game.assets.manual);
-        }
+        if (game && game.assets.manual) { mediaList.push(game.assets.manual);
+        }*/
 
         if (game) {
-            game.assets.screenshotList.forEach(v => mediaList.push(v));
-            game.assets.backgroundList.forEach(v => mediaList.push(v));
-
-            //To add other assets as visible in media list if possible (verify to avoid dooblons display also)
-            if ((game.assets.boxFront !== "") && (game.assets.boxFront !== game.assets.screenshots[0]) && (game.assets.boxFront !== game.assets.background)) mediaList.push(game.assets.boxFront);
-            if (game.assets.boxFront3d !== "") mediaList.push(game.assets.boxFront3d);
-            if (game.assets.boxBack !== "") mediaList.push(game.assets.boxBack);
-            if (game.assets.boxSpine !== "") mediaList.push(game.assets.boxSpine);
-            if (game.assets.boxFull !== "") mediaList.push(game.assets.boxFull);
-            if ((game.assets.cartridge !== "") && (game.assets.cartridge !== game.assets.boxFront)) mediaList.push(game.assets.cartridge);
-            if (game.assets.cartridgetexture !== "") mediaList.push(game.assets.cartridgetexture);
-            if (game.assets.logo !== "") mediaList.push(game.assets.logo);
-            if (game.assets.logocarbon !== "") mediaList.push(game.assets.logocarbon);
-            if (game.assets.logosteel !== "") mediaList.push(game.assets.logosteel);
-            if (game.assets.poster !== "") mediaList.push(game.assets.poster);
-
-            if (game.assets.marquee !== "") mediaList.push(game.assets.marquee);
+            if (game.assets.boxBack !== "") mediaList.push(game.assets.boxBack); //is box2dback
+            if (game.assets.boxFront !== "") mediaList.push(game.assets.boxFront); //is box2dfront
+            if (game.assets.boxSpine !== "") mediaList.push(game.assets.boxSpine); //is box2dside
+            if (game.assets.box3d !== "") mediaList.push(game.assets.box3d);
+            if (game.assets.boxFull !== "") mediaList.push(game.assets.boxFull); //is boxtexture
+            if (game.assets.background !== "") mediaList.push(game.assets.background); //is fanart
+            if (game.assets.manual !== "") mediaList.push(game.assets.manual);
+            if (game.assets.map !== "") mediaList.push(game.assets.map); //RFU
+            if (game.assets.arcadebanner !== "") mediaList.push(game.assets.arcadebanner); //is marquee
+            if (game.assets.marquee !== "") mediaList.push(game.assets.marquee); //is screenmarquee
             if (game.assets.screenmarqueesmall !== "") mediaList.push(game.assets.screenmarqueesmall);
-            if (game.assets.bezel !== "") mediaList.push(game.assets.bezel);
-            if (game.assets.panel !== "") mediaList.push(game.assets.panel);
-            if (game.assets.cabinetLeft !== "") mediaList.push(game.assets.cabinetLeft);
-            if (game.assets.cabinetRight !== "") mediaList.push(game.assets.cabinetRight);
+            if (game.assets.screenshot !== "") mediaList.push(game.assets.screenshot); //is screenshot
+            if (game.assets.titlescreen !== "") mediaList.push(game.assets.titlescreen); //is screenshottitle
+            if (game.assets.steam !== "") mediaList.push(game.assets.steam); //is steamgrid
+            if (game.assets.cartridge !== "") mediaList.push(game.assets.cartridge); //is support
+            if (game.assets.cartridgetexture !== "") mediaList.push(game.assets.cartridgetexture); //is supporttexture
+            if (game.assets.video !== "") mediaList.push(game.assets.video);
+            if (game.assets.logo !== "") mediaList.push(game.assets.logo); //is wheel
+            if (game.assets.logocarbon !== "") mediaList.push(game.assets.logocarbon); //is wheelcarbon
+            if (game.assets.logosteel !== "") mediaList.push(game.assets.logosteel); //is wheelsteel
 
-            if (game.assets.tile !== "") mediaList.push(game.assets.tile);
-            if (game.assets.steam !== "") mediaList.push(game.assets.steam);
-            if (game.assets.banner !== "") mediaList.push(game.assets.banner);
+            //if (game.assets.music !== "") mediaList.push(game.assets.music); //RFU
 
-            //if (game.assets.music !== "") mediaList.push(game.assets.music);//RFU
-
-            if (game.assets.titlescreen !== "") mediaList.push(game.assets.titlescreen);
-
-            if (game.assets.map !== "") mediaList.push(game.assets.map);
+            //game.assets.screenshotList.forEach(v => mediaList.push(v));
+            //game.assets.backgroundList.forEach(v => mediaList.push(v));
+            //To add other assets as visible in media list if possible (verify to avoid dooblons display also)
+            //if ((game.assets.boxFront !== "") && (game.assets.boxFront !== game.assets.screenshots[0]) && (game.assets.boxFront !== game.assets.background)) mediaList.push(game.assets.boxFront);
+            //if ((game.assets.cartridge !== "") && (game.assets.cartridge !== game.assets.boxFront)) mediaList.push(game.assets.cartridge);
+            //if (game.assets.poster !== "") mediaList.push(game.assets.poster);
+            //if (game.assets.bezel !== "") mediaList.push(game.assets.bezel);
+            //if (game.assets.panel !== "") mediaList.push(game.assets.panel);
+            //if (game.assets.cabinetLeft !== "") mediaList.push(game.assets.cabinetLeft);
+            //if (game.assets.cabinetRight !== "") mediaList.push(game.assets.cabinetRight);
+            //if (game.assets.tile !== "") mediaList.push(game.assets.tile); //not use
+            //if (game.assets.banner !== "") mediaList.push(game.assets.banner);
         }
 
         return mediaList;
@@ -823,7 +825,7 @@ FocusScope {
         Button {
             id: button1
 
-            text: qsTr("Play game") + api.tr
+            text: "Play game"
             height: parent.height
             selected: (demoLaunched !== true) && ListView.isCurrentItem && menu.focus
             onHighlighted: { menu.currentIndex = ObjectModel.index; content.currentIndex = 0; }
@@ -857,7 +859,7 @@ FocusScope {
         Button {
             id: button3
 
-            property string buttonText: game && game.favorite ? qsTr("Unfavorite") + api.tr : qsTr("Add favorite") + api.tr
+            property string buttonText: game && game.favorite ? "Unfavorite" : "Add favorite"
             //text: buttonText
             icon: favIcon
             height: parent.height
@@ -893,7 +895,7 @@ FocusScope {
         Button {
             id: button5
             icon: readyForNeplay ? "../assets/images/multiplayer.svg" : "../assets/images/icon_cup.svg"
-            text: readyForNeplay ? qsTr("Netplay") + api.tr : ""
+            text: readyForNeplay ? "Netplay" : ""
             height: parent.height
             selected: ListView.isCurrentItem && menu.focus
             onHighlighted: { menu.currentIndex = ObjectModel.index; content.currentIndex = 0; }
@@ -978,7 +980,7 @@ FocusScope {
             visible: (demoLaunched !== true)
             width: root.width - vpx(70) - globalMargin
             height: ((root.width - globalMargin * 2) / 6.0) + vpx(60)
-            title: qsTr("Media") + api.tr
+            title: "Media"
             model: game ? mediaArray() : []
             delegate: MediaItem {
                 id: mediadelegate
@@ -1019,7 +1021,7 @@ FocusScope {
             itemWidth: (root.width - globalMargin * 2) / 4.0
             itemHeight: itemWidth * settings.WideRatio
 
-            title: game ? qsTr("More games by") + api.tr + " " + game.publisher : ""
+            title: game ? "More games by " + game.publisher : ""
             search: publisherCollection
             onListHighlighted: { sfxNav.play(); content.currentIndex = list1.ObjectModel.index; }
         }
@@ -1035,7 +1037,7 @@ FocusScope {
             itemWidth: (root.width - globalMargin * 2) / 8.0
             itemHeight: itemWidth / settings.TallRatio
 
-            title: game ? qsTr("More games of") + " " + game.genreList[0].toLowerCase() + api.tr  : ""
+            title: game ? "More " + game.genreList[0].toLowerCase() + " games" : ""
             search: genreCollection
             onListHighlighted: { sfxNav.play(); content.currentIndex = list2.ObjectModel.index; }
         }
@@ -1148,15 +1150,15 @@ FocusScope {
         id: gameviewHelpModel
 
         ListElement {
-            name: qsTr("Back")
+            name: "Back"
             button: "cancel"
         }
         ListElement {
-            name: qsTr("Toggle favorite")
+            name: "Toggle favorite"
             button: "filters"
         }
         ListElement {
-            name: qsTr("Launch")
+            name: "Launch"
             button: "accept"
         }
     }

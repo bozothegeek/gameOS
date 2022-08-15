@@ -352,13 +352,15 @@ function steamHeader(gameData) {
 }
 
 function boxArt(data) {
-  if (data != null) {
+  if (data !== null) {
     if (data.assets.boxFront.includes("/header.jpg")) 
       return steamBoxArt(data);
     else {
-      if (data.assets.boxFront != "")
+      if (data.assets.box3d !== "")
+        return data.assets.box3d;
+      else if (data.assets.boxFront !== "")
         return data.assets.boxFront;
-      else if (data.assets.poster != "")
+      /*else if (data.assets.poster != "")
         return data.assets.poster;
       else if (data.assets.banner != "")
         return data.assets.banner;
@@ -367,18 +369,18 @@ function boxArt(data) {
       else if (data.assets.cartridge != "")
         return data.assets.cartridge;
       else if (data.assets.logo != "")
-        return data.assets.logo;
+        return data.assets.logo;*/
     }
   }
   return "";
 }
 
 function logo(data) {
-  if (data != null) {
+  if (data !== null) {
     if (data.assets.boxFront.includes("/header.jpg")) 
       return steamLogo(data);
     else {
-      if (data.assets.logo != "")
+      if (data.assets.logo !== "")
         return data.assets.logo;
     }
   }
@@ -386,14 +388,16 @@ function logo(data) {
 }
 
 function fanArt(data) {
-  if (data != null) {
+  if (data !== null) {
     if (data.assets.boxFront.includes("/header.jpg")) 
       return steamHero(data);
     else {
-      if (data.assets.marquee != "")
-        return data.assets.marquee;
-      if (data.assets.background != "")
+      if (data.assets.background !== "")
         return data.assets.background;
+      if (data.assets.arcadebanner !== "")
+        return data.assets.arcadebanner;
+      if (data.assets.marquee !== "")
+        return data.assets.marquee;
       else if (data.assets.screenshots[0])
         return data.assets.screenshots[0];
     }
@@ -404,7 +408,7 @@ function fanArt(data) {
 // Place Steam collections at the beginning of the list
 function reorderCollection(model) {
   for(var i=0; i<model.count; i++) {
-    if (model.get(i).name == "Steam") {
+    if (model.get(i).name === "Steam") {
       model.move(i,0);
       return model;
     }
